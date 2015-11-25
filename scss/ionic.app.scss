@@ -1,0 +1,225 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+/* Your app's CSS, go crazy, make it your own */
+
+.ionic-logo {
+  display: block;
+  margin: 15px auto;
+  width: 96px;
+  height: 96px;
+}
+
+.pane {
+  background-color: rgb(71,150,125);
+}
+
+.bar.bar-transparent {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+}
+
+.bar .title {
+  color: #eee;
+}
+
+.swipe-cards {
+  position: fixed;
+}
+
+swipe-card {
+  display: none;
+  position: fixed;
+  -webkit-transform: scale(1,1);
+  left: 50%;
+  top: 35%;
+  width: 300px;
+  height: 425px;
+  margin-left: -150px;
+  margin-top: -150px;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-animation-fill-mode: forwards;
+}
+
+swipe-card .title {
+  height: 40px;
+  padding: 5px;
+  line-height: 30px;
+  color: #444;
+}
+swipe-card .image {
+  overflow: hidden;
+  max-height: 210px;
+}
+swipe-card .button {
+  border: none;
+}
+swipe-card .image img {
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+}
+
+
+#scoreboard {
+  display: none;
+  position: fixed;
+  -webkit-transform: scale(1,1);
+  left: 15%;
+  top: 15%;
+  width: 300px;
+  height: 100px;
+  margin-left: -150px;
+  margin-top: -150px;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 0;
+  overflow: hidden;
+  -webkit-animation-fill-mode: forwards;
+}
+
+#start-card {
+  color: #fff;
+  background-color: #30BD8A;
+  line-height: 300px;
+  word-wrap: break-word;
+  border: 6px solid #4CD68E;
+  text-align: center;
+}
+#start-card span {
+  display: inline-block;
+  line-height: 40px;
+  width: 200px;
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+#footer .button {
+  color: #fff;
+}
+
+@-webkit-keyframes bounceIn {
+  0% {
+    -webkit-transform: scale(0,0);
+  }
+  70% {
+    -webkit-transform: scale(1.2,1.2);
+  }
+  100% {
+    -webkit-transform: scale(1,1);
+  }
+}
+
+swipe-card.pop-in-start {
+  -webkit-transform: scale(0,0);
+}
+swipe-card.pop-in {
+  -webkit-animation: bounceIn 0.4s ease-out;
+}
+
+
+
+
+
+
+.show {
+  display: block !important;
+}
+.hidden {
+  display: none !important;
+}
+
+.active-team-wrapper {
+  color: #fff;
+}
+
+.bg-team1 {
+  background-color: blue;
+}
+
+.bg-team2 {
+  background-color: red;
+}
+
+ .box {
+        height: 100%;
+        width:100%;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .red {
+        background-color: red;
+      }
+      .yellow {
+        background-color: yellow;
+      }
+      .pink {
+        background-color: pink;
+      }
+       
+    .slider {
+      height: 100%;
+    }
+    .slider-slide {
+      padding-top: 80px;
+      background-color: #fff;
+      color: #000;
+      text-align: center;
+      font-weight: 300;
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    }
+    #logo {
+      margin: 30px 0px;
+    }
+    #list {
+      margin: 30px auto;
+      width: 170px;
+      font-size: 20px;
+    }
+    #list ol {
+      margin-top: 30px;
+    }
+    #list ol li {
+      margin: 10px 0px;
+      list-style: decimal;
+      text-align: left;
+    }
+    body {
+     background-color: rgba(26, 188, 156, 0.15);
+     margin-top: 50px;
+    }
+    .bg-primary{
+      background-color: #1abc9c!important;
+    }
+    .bg-secondary{
+      background-color: #16a085!important;
+    }
+    .demo{
+      background-color: rgba(26, 188, 156, 0.15);
+      height: 350px;
+      width: 350px;
+    }

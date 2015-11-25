@@ -1,0 +1,12 @@
+{
+  "name": "charadesApp",
+  "app_id": "74e04cf9",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

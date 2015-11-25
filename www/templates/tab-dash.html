@@ -1,0 +1,14 @@
+<ion-view view-title="Dashboard">
+  <ion-content class="padding" class="bg-primary">
+
+<div class="demo">Demo Box</div>
+
+  <swipe-cards>
+    <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
+   
+    </swipe-card>
+  </swipe-cards>
+
+
+  </ion-content>
+</ion-view>
