@@ -14,14 +14,93 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+$ionicons-font-path: '../lib/ionic/fonts' !default;
+@import 'www/lib/ionic/scss/ionic';
 
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Satisfy);
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two|Open+Sans+Condensed:300,700|Sigmar+One);
 
-// Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+body {
+ font-family: 'Open Sans Condensed', sans-serif;
+ background-color: #60d7a9;
+ margin-top: 50px;
+ color: #ccc;
+}
 
-/* Your app's CSS, go crazy, make it your own */
+.bg-primary{
+  background-color: #1abc9c!important;
+}
+.bg-secondary{
+  background-color: #16a085!important;
+}
+
+.demo {
+  background-color: rgba(26, 188, 156, 0);
+  height: 350px;
+  width: 350px;
+}
+
+
+.pt-page-current, .no-js .pt-page {
+  visibility: visible;
+  z-index: 1;
+}
+
+.pt-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.pt-page h1 strong {
+  color: rgba(0,0,0,0.1);
+}
+
+.pt-page h1 {
+  position: absolute;
+  font-weight: 300;
+  font-size: 4.4em;
+  line-height: 1;
+  letter-spacing: 6px;
+  margin: 0;
+  top: 12%;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  word-spacing: -0.3em;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+
+p {
+  color: #fff;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}
 
 .ionic-logo {
   display: block;
@@ -30,8 +109,21 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   height: 96px;
 }
 
+h2.secret-phrase {
+  font-family: 'Shadows Into Light Two', cursive;
+  font-size: 32px;
+  color: #000;
+  text-align: center;
+  margin: 15px auto;
+}
+
 .pane {
-  background-color: rgb(71,150,125);
+  background-color: #479687;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .bar.bar-transparent {
@@ -44,6 +136,112 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   color: #eee;
 }
 
+.dont-break-out {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+#messageContainer{
+  position: fixed;
+  left: 10%;
+  top: 0;
+  width:100%;
+  height: 100px;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  color: #fff;
+  word-wrap: break-word;
+
+  p.detail {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.125;
+    text-align: left;
+  }
+
+  p.game-messages {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    line-height: 1.225;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px;
+    text-shadow: 1px 1px #ccc;
+
+  }
+}
+
+#activeCard {
+  box-sizing: border-box;
+  
+  #preSecretPhrase {
+    box-sizing: border-box;
+    text-align: center;
+
+      h2 {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        color: #000;
+        text-align: center;
+        padding: 0;
+        margin: 35px auto;
+      }
+      p {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        color: #000;
+        text-align: center;
+        line-height: 1.345;
+       }
+      button {
+        margin: 15px auto;
+        bottom:0;
+      }
+
+  }
+  
+  #secretPhrase {
+    box-sizing: border-box;
+  }
+
+  #publicCountdownScreen {
+    box-sizing: border-box;
+
+    h1 {
+      font-family: 'Lora', serif;
+      text-align: center;
+      font-wieght: bold;
+      font-size: 24px;
+      margin: 15px auto;
+      color: #fff;
+      width:100%;
+      text-shadow: 2px 2px #000;
+      opacity: 1.0;
+    }
+    #timeExpiredScreen {
+      box-sizing: border-box;
+
+    }
+  }
+
+
+
+}
+
+
+
+
 .swipe-cards {
   position: fixed;
 }
@@ -53,9 +251,9 @@ swipe-card {
   position: fixed;
   -webkit-transform: scale(1,1);
   left: 50%;
-  top: 35%;
+  top: 60%;
   width: 300px;
-  height: 425px;
+  height: 350px;
   margin-left: -150px;
   margin-top: -150px;
   box-sizing: border-box;
@@ -63,14 +261,17 @@ swipe-card {
   border-radius: 4px;
   overflow: hidden;
   -webkit-animation-fill-mode: forwards;
+  color: #000;
 }
 
 swipe-card .title {
   height: 40px;
-  padding: 5px;
+  padding: 15px;
   line-height: 30px;
   color: #444;
 }
+
+
 swipe-card .image {
   overflow: hidden;
   max-height: 210px;
@@ -84,29 +285,12 @@ swipe-card .image img {
 }
 
 
-#scoreboard {
-  display: none;
-  position: fixed;
-  -webkit-transform: scale(1,1);
-  left: 15%;
-  top: 15%;
-  width: 300px;
-  height: 100px;
-  margin-left: -150px;
-  margin-top: -150px;
-  box-sizing: border-box;
-  background-color: rgb(255,255,255);
-  border-radius: 0;
-  overflow: hidden;
-  -webkit-animation-fill-mode: forwards;
-}
-
 #start-card {
   color: #fff;
-  background-color: #30BD8A;
+  background-color: #1abc9c;
   line-height: 300px;
   word-wrap: break-word;
-  border: 6px solid #4CD68E;
+  border: 6px solid #fff;
   text-align: center;
 }
 #start-card span {
@@ -145,12 +329,43 @@ swipe-card.pop-in {
 
 
 
-.show {
-  display: block !important;
+@keyframes flipInX {
+  0% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transition-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  100% {
+    transform: perspective(400px);
+    transform: perspective(400px);
+    transform: perspective(400px);
+  }
 }
-.hidden {
-  display: none !important;
-}
+
+
+
 
 .active-team-wrapper {
   color: #fff;
@@ -164,62 +379,200 @@ swipe-card.pop-in {
   background-color: red;
 }
 
- .box {
-        height: 100%;
-        width:100%;
-      }
-      .blue {
-        background-color: blue;
-      }
-      .red {
-        background-color: red;
-      }
-      .yellow {
-        background-color: yellow;
-      }
-      .pink {
-        background-color: pink;
-      }
-       
-    .slider {
-      height: 100%;
-    }
-    .slider-slide {
-      padding-top: 80px;
-      background-color: #fff;
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  font-weight: 300;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+#logo {
+  margin: 30px 0px;
+}
+#list {
+  margin: 30px auto;
+  width: 170px;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  margin: 10px 0px;
+  list-style: decimal;
+  text-align: left;
+}
+
+/** Scoreboard **/
+.scoreboard {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    border: solid;
+    border-radius: 8px;
+    background-image: url('img/debut-dark.png');
+    color: white;
+    font-family: 'Lora', serif;
+    padding: 3px 0;
+}
+
+.scoreboard .title {
+    font-size: 15px;
+}
+
+.scoreboard .detail {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+/** Results **/
+.game-results {
+  z-index: 10;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  background-image: url('img/debut-dark.png');
+
+    .result-text {
+      font-family: 'Sigmar One', cursive;
       color: #000;
-      text-align: center;
-      font-weight: 300;
-      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      width:100%;
+      line-height: 1.245;
+      font-size: 42px;
+      text-shadow: 2px 2px #ccc;
+      opacity: 1.0;
     }
-    #logo {
-      margin: 30px 0px;
-    }
-    #list {
-      margin: 30px auto;
-      width: 170px;
-      font-size: 20px;
-    }
-    #list ol {
-      margin-top: 30px;
-    }
-    #list ol li {
-      margin: 10px 0px;
-      list-style: decimal;
-      text-align: left;
-    }
-    body {
-     background-color: rgba(26, 188, 156, 0.15);
-     margin-top: 50px;
-    }
-    .bg-primary{
-      background-color: #1abc9c!important;
-    }
-    .bg-secondary{
-      background-color: #16a085!important;
-    }
-    .demo{
-      background-color: rgba(26, 188, 156, 0.15);
-      height: 350px;
-      width: 350px;
-    }
+}
+
+
+
+
+.yes-text {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 30px;
+  color: rgb(111, 250, 111);
+  opacity: 0;
+}
+.no-text {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: rgb(255, 115, 115);
+  opacity: 0;
+}
+
+.fade {
+  -webkit-transition: 0.2s opacity linear;
+  transition: 0.2s opacity linear;
+  opacity: 0;
+}
+
+
+
+/* since a hardcoded duration value of 1 was provided in the JavaScript animation code,
+the CSS classes below will be transitioned despite them being defined as regular CSS classes */
+.red { background:red; }
+.large-text { font-size:20px; }
+
+/* we can also use a keyframe animation and $animateCss will make it work alongside the transition */
+.pulse-twice {
+  animation: 0.5s pulse linear 2;
+  -webkit-animation: 0.5s pulse linear 2;
+}
+
+@keyframes pulse {
+  from { transform: scale(0.5); }
+  to { transform: scale(1.5); }
+}
+
+@-webkit-keyframes pulse {
+  from { -webkit-transform: scale(0.5); }
+  to { -webkit-transform: scale(1.5); }
+}
+
+.my-messages {
+  transition:1s linear all;
+}
+.my-messages.ng-active {
+  // messages are visible
+}
+.my-messages.ng-inactive {
+  // messages are hidden
+}
+
+.some-message {
+  transition:1s linear all;
+}
+
+.some-message.ng-enter {}
+.some-message.ng-enter.ng-enter-active {}
+
+.some-message.ng-leave {}
+.some-message.ng-leave.ng-leave-active {}
+
+
+
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fade.ng-enter {
+  animation: 2s appear;
+}
+
+.fade.ng-leave {
+  animation: 1s disappear;
+}
+
+
+
+
+.show {
+  animation: 1s appear;
+  display: block!important;
+}
+.hidden {
+  animation: 1s disappear;
+  display: none!important;
+}

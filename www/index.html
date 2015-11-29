@@ -2,10 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <title>Charades Against Civilized Society</title>
-
-
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/animate.css/animate.css">
+    <link rel="stylesheet" href="lib/ionic-ion-tinder-cards/ionic.tdcards.css">
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
     <style>
@@ -15,104 +18,39 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="lib/EaselJS/lib/easeljs-0.8.1.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
-<!-- <script src="cordova.js"></script> -->
+    <!-- <script src="cordova.js"></script> -->
 
     <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="../www/lib/ionic-ion-swipe-cards/ionic.swipecards.js"></script>
+    <script src="app.js"></script>
+
+
+    <script src="js/ionic.swipecards.custom.js"></script>
+    <!-- <script src="lib/ionic-ion-tinder-cards/ionic.tdcards.js"></script>-->
+    <script src="lib/collide/collide.js"></script>
+    
+
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-touch/angular-touch.js"></script>
+    <script src="lib/angular-messages/angular-messages.js"></script>
+    <!-- <script src="lib/angular-swipe/dist/angular-swipe.js"></script>-->
+    
+    <script src="lib/logger/logger.js"></script>
 
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
-  </head>
-  <body ng-app="starter" no-scroll>
- 
-     
-  <ion-pane ng-controller="CardsCtrl">
-      <ion-header-bar class="bar-transparent">
-          <h1 class="title">Help Out</h1>
-        </ion-header-bar>
+    <script src="js/animations.js"></script>
 
 
-<div id="preSecretPhrase">Scoreboard: </div>
-      <swipe-cards>
-        <swipe-card on-card-swipe="cardSwiped()" id="start-card">
-          Swipe down for a new card
-        </swipe-card>
-        <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
-          <div ng-controller="CardCtrl">
-            <div class="title">
-              {{card.title}}
-            </div>
-            <div class="image">
-              <img ng-src="{{card.image}}">
-            </div>
-            <p>
-              {{card.phrase}}
-            </p>
-
-
-
-
-                <div id="preSecretPhrase" class="pre-secret-phrase bg-danger {{ (vm.turnStep === 0) ? 'show' : 'hidden' }}">
-                    <p>
-                        Please hand the game controller to {{vm.activeTeam}}.  When you're ready to reveal your secret phrase, please click the button below.
-                    </p>
-                    <button class="btn btn-success btn-lg" ng-click="vm.showSecretPhrase()">Ok I'm ready</button>
-                </div>
-
-
-                <div id="secretPhrase" class="secret-phrase bg-warning {{ (vm.turnStep === 1) ? 'show' : 'hidden' }}">
-                    <h1>{{vm.activePhrase}}</h1>   
-
-
-                    <p>
-                        You will have 60 seconds to act out the secret phrase above.<br>
-                        When you are ready click the start button and put the game controller somewhere close to your team members.
-                    </p>
-                    <button class="btn btn-success btn-lg" ng-click="vm.startCountdown()">Start Countdown</button>
-                </div>
-
-
-                <div id="publicCountdownScreen" class="countdown-screen bg-success {{ (vm.turnStep === 2) ? 'show' : 'hidden' }}">
-                    <h1>00:{{vm.secondsRemaining}}</h1>
-                    
-                    <div class="success-message bg-info" ng-if="vm.viewSecretPhraseSuccessMessage">
-                        {{vm.successMessage}}
-                        <button class="btn btn-primary btn-confirm" ng-click="vm.answeredCorrectConfirmed()">Confirm</button>
-                        <button class="btn btn-default btn-confirm" ng-click="vm.answeredCorrectCanceled()">Cancel</button>
-                    </div>
-
-                    <button class="btn btn-success btn-lg" ng-click="vm.answeredCorrect()" 
-                        ng-if="!vm.viewSecretPhraseSuccessMessage">Answered Correct!</button>
-                </div>
-
-
-
-
-                <div id="timeExpiredScreen" class="time-expired-screen bg-danger {{ (vm.turnStep === 3) ? 'show' : 'hidden' }}">
-                    <h2>Your time has expired.</h2>
-                    <h3>No points awarded to {{vm.activeTeam}}</h3>
-                    <button class="btn btn-default" ng-click="vm.nextTurn()">Next Turn</button>
-                </div>
-
-
-
-
-            <div class="button-bar">
-              <button class="button button-clear button-positive" ng-click="vm.showSecretPhrase()">Answer</button>
-              <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
-            </div>
-          </div>
-        </swipe-card>
-      </swipe-cards>
-
-
-    </ion-pane>
-
+  </head> 
+ <body ng-app="app" animation="slide-left-right-ios7" no-scroll>
+    
+    <charades-game></charades-game>
 
   </body>
 </html>

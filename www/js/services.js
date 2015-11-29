@@ -1,13 +1,13 @@
-angular.module('starter.services', [])
+angular.module('app.services', [])
 
-.factory('Chats', function() {
+.factory('cardService', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var cards = [{
     id: 0,
     name: 'Ben Sparrow',
-    lastText: 'You on your way?',
+    phrase: 'Walk like a Duck',
     face: 'img/ben.png'
   }, {
     id: 1,
@@ -33,15 +33,15 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return chats;
+      return cards;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(card) {
+      cards.splice(cards.indexOf(card), 1);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(cardId) {
+      for (var i = 0; i < cards.length; i++) {
+        if (card[i].id === parseInt(cardId)) {
+          return cards[i];
         }
       }
       return null;

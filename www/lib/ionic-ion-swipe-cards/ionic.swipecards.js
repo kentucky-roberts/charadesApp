@@ -88,7 +88,8 @@
 
       ionic.extend(this, opts);
 
-      this.el = opts.el;
+      this.parentWidth = this.el.parentNode.offsetWidth;
+      this.width = this.el.offsetWidth;
 
       this.startX = this.startY = this.x = this.y = 0;
 
@@ -168,12 +169,43 @@
     swipe: function() {
       this.transitionOut();
     },
+    
+    /**
+     * Snap the card back to its original position
+     */
+    snapBack: function() {
+      this.onSnapBack(this.x, this.y, this.rotationAngle);
+    },
 
+    isUnderThreshold: function() {
+      //return true;
+      return Math.abs(this.thresholdAmount) < 0.4;
+    },
     /**
      * Fly the card out or animate back into resting position.
      */
-    transitionOut: function() {
+    transitionOut: function(e) {
       var self = this;
+
+      if(this.isUnderThreshold()) {
+        self.onSnapBack(this.x, this.y, this.rotationAngle);
+        return;
+      }
+
+      self.onTransitionOut(self.thresholdAmount);
+      
+      var angle = Math.atan(e.gesture.deltaX / e.gesture.deltaY);
+
+      var dir = this.thresholdAmount < 0 ? -1 : 1;
+      var targetX;
+      if(this.x > 0) {
+        targetX = (this.parentWidth / 2) + (this.width);
+      } else {
+        targetX = - (this.parentWidth + this.width);
+      }
+
+      // Target Y is just the "opposite" side of the triangle of targetX as the adjacent edge (sohcahtoa yo)
+      var targetY = targetX / Math.tan(angle);
 
       if(this.y < 0) {
         this.el.style[TRANSITION] = '-webkit-transform 0.2s ease-in-out';
@@ -202,12 +234,14 @@
     bindEvents: function() {
       var self = this;
       ionic.onGesture('dragstart', function(e) {
+                /*
         var cx = window.innerWidth / 2;
         if(e.gesture.touches[0].pageX < cx) {
           self._transformOriginRight();
         } else {
           self._transformOriginLeft();
         }
+        */
         ionic.requestAnimationFrame(function() { self._doDragStart(e) });
       }, this.el);
 
@@ -243,17 +277,52 @@
     },
 
     _doDrag: function(e) {
-      var o = e.gesture.deltaY / 3;
+      var oY = e.gesture.deltaY / 3;
 
-      this.rotationAngle = Math.atan(o/this.touchDistance) * this.rotationDirection;
+      this.rotationAngle = Math.atan(oY/this.touchDistance) * this.rotationDirection;
 
       if(e.gesture.deltaY < 0) {
         this.rotationAngle = 0;
       }
 
-      this.y = this.startY + (e.gesture.deltaY * 0.4);
+      //this.y = this.startY + (e.gesture.deltaY * 0.4);
 
-      this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
+      //this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
+    
+      
+      var oX = e.gesture.deltaX / -1000;
+
+      this.rotationAngle = Math.atan(oX/this.touchDistance) * this.rotationDirection;
+
+      if(e.gesture.deltaX < 0) {
+        this.rotationAngle = 0;
+      }
+
+      this.y = this.startX + (e.gesture.deltaY * 0.4);
+      this.x = this.startX + (e.gesture.deltaX * 0.4);
+
+      //this.el.style[ionic.CSS.TRANSFORM] = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
+    
+
+
+
+
+      //var o = e.gesture.deltaX / -1000;
+
+      //this.rotationAngle = Math.atan(o);
+
+      //this.x = this.startX + (e.gesture.deltaX * 0.4);
+      //this.y = this.startY + (e.gesture.deltaY * 0.4);
+
+      this.el.style.transform = this.el.style.webkitTransform = 'translate3d(' + this.x + 'px, ' + this.y  + 'px, 0) rotate(' + (this.rotationAngle || 0) + 'rad)';
+
+
+      this.thresholdAmount = (this.x / (this.parentWidth/2));
+
+      var self = this;
+      setTimeout(function() {
+        //self.onPartialSwipe(self.thresholdAmount);
+      });
     },
     _doDragEnd: function(e) {
       this.transitionOut(e);
@@ -264,6 +333,26 @@
   angular.module('ionic.contrib.ui.cards', ['ionic'])
 
   .directive('swipeCard', ['$timeout', function($timeout) {
+
+
+    /**
+     * A simple non-linear fade function for the text on each card
+     */
+    var fadeFn = function(t) {
+      // Speed up time to ramp up quickly
+      t = Math.min(1, t * 3);
+
+      // This is a simple cubic bezier curve.
+      // http://cubic-bezier.com/#.11,.67,.41,.99
+      var c1 = 0.11,
+          c2 = 0.67,
+          c3 = 0.41,
+          c4 = 0.99;
+
+      return Math.pow((1 - t), 3)*c1 + 3*Math.pow((1 -  t), 2)*t*c2 + 3*(1 - t)*t*t*c3 + Math.pow(t, 3)*c4;
+    };
+
+
     return {
       restrict: 'E',
       template: '<div class="swipe-card" ng-transclude></div>',
@@ -271,29 +360,112 @@
       transclude: true,
       scope: {
         onCardSwipe: '&',
+        onSwipeLeft: '&',
+        onSwipeRight: '&',
+        onTransitionLeft: '&',
+        onTransitionRight: '&',
+        onTransitionOut: '&',
+        onPartialSwipe: '&',
+        onSnapBack: '&',
         onDestroy: '&'
       },
-      link: function($scope, $element, $attr, swipeCards) {
-        var el = $element[0];
+//      link: function($scope, $element, $attr, swipeCards) {
+  //      var el = $element[0];
+      compile: function(element, attr, swipeCards) {
+        return function($scope, $element, $attr, swipeCards) {
+          var el = $element[0];
+          var leftText = el.querySelector('.no-text');
+          var rightText = el.querySelector('.yes-text');
+          
+          // Force hardware acceleration for animation - better performance on first touch
+          el.style.transform = el.style.webkitTransform = 'translate3d(0px, 0px, 0px)';
 
         // Instantiate our card view
         var swipeableCard = new SwipeableCardView({
           el: el,
-          onSwipe: function() {
-            $timeout(function() {
-              $scope.onCardSwipe();
-            });
-          },
-          onDestroy: function() {
-            $timeout(function() {
-              $scope.onDestroy();
-            });
-          },
+            leftText: leftText,
+            rightText: rightText,
+
+            
+            onSwipeRight: function() {
+              $timeout(function() {
+                $scope.onSwipeRight();
+              });
+            },
+            onSwipeLeft: function() {
+              $timeout(function() {
+                $scope.onSwipeLeft();
+              });
+            },
+            onTransitionRight: function() {
+              $timeout(function() {
+                $scope.onTransitionRight();
+              });
+            },
+            onTransitionLeft: function() {
+              $timeout(function() {
+                $scope.onTransitionLeft();
+              });
+            },
+            onTransitionOut: function(amt) {
+              if (amt < 0) {
+                swipeableCard.onTransitionLeft();
+              } else {
+                swipeableCard.onTransitionRight();
+              }
+              $timeout(function() {
+                $scope.onTransitionOut({amt: amt});
+              });
+            },
+            onDestroy: function() {
+              $timeout(function() {
+                $scope.onDestroy();
+              });
+            },
+            onSnapBack: function(startX, startY, startRotation) {
+              var leftText = el.querySelector('.yes-text');
+              var rightText = el.querySelector('.no-text');
+
+              var animation = collide.animation({
+                // 'linear|ease|ease-in|ease-out|ease-in-out|cubic-bezer(x1,y1,x2,y2)',
+                // or function(t, duration),
+                // or a dynamics configuration (see below)
+                duration: 500,
+                percent: 0,
+                reverse: false
+              })
+
+              .easing({
+                type: 'spring',
+                frequency: 15,
+                friction: 250,
+                initialForce: false
+              }) 
+
+              .on('step', function(v) {
+                //Have the element spring over 400px
+                el.style.transform = el.style.webkitTransform = 'translate3d(' + (startX - startX*v) + 'px, ' + (startY - startY*v) + 'px, 0) rotate(' + (startRotation - startRotation*v) + 'rad)';
+                if (rightText) rightText.style.opacity = 0;
+                if (leftText) leftText.style.opacity = 0;
+              })
+              .start();
+
+              $timeout(function() {
+                $scope.onSnapBack();
+              });
+
+              /*
+              animateSpringViaCss(el, 0, 0.5, 50, 700, 10, function (x) {
+                return el.style.transform = el.style.webkitTransform = 'translate3d(' + x + 'px,0,0)';
+              });
+              */
+            },
         });
-        $scope.$parent.swipeCard = swipeableCard;
+        //$scope.$parent.swipeCard = swipeableCard;
 
         swipeCards.swipeController.pushCard(swipeableCard);
 
+       }
       }
     }
   }])

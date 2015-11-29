@@ -1,0 +1,82 @@
+
+  <ion-pane ng-controller="CardsCtrl">
+      <ion-header-bar class="bar-transparent">
+          <h1 class="title">Help Out</h1>
+        </ion-header-bar>
+
+
+<div id="preSecretPhrase">Scoreboard: </div>
+      <swipe-cards>
+        <swipe-card on-card-swipe="cardSwiped()" id="start-card">
+          Swipe down for a new card
+        </swipe-card>
+        <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-card-swipe="cardSwiped($index)">
+          <div ng-controller="CardCtrl">
+            <div class="title">
+              {{card.title}}
+            </div>
+            <div class="image">
+              <img ng-src="{{card.image}}">
+            </div>
+            <p>
+              {{card.phrase}}
+            </p>
+
+
+
+
+                <div id="preSecretPhrase" class="pre-secret-phrase bg-danger {{ (vm.turnStep === 0) ? 'show' : 'hidden' }}">
+                    <p>
+                        Please hand the game controller to {{vm.activeTeam}}.  When you're ready to reveal your secret phrase, please click the button below.
+                    </p>
+                    <button class="btn btn-success btn-lg" ng-click="vm.showSecretPhrase()">Ok I'm ready</button>
+                </div>
+
+
+                <div id="secretPhrase" class="secret-phrase bg-warning {{ (vm.turnStep === 1) ? 'show' : 'hidden' }}">
+                    <h1>{{vm.activePhrase}}</h1>   
+
+
+                    <p>
+                        You will have 60 seconds to act out the secret phrase above.<br>
+                        When you are ready click the start button and put the game controller somewhere close to your team members.
+                    </p>
+                    <button class="btn btn-success btn-lg" ng-click="vm.startCountdown()">Start Countdown</button>
+                </div>
+
+
+                <div id="publicCountdownScreen" class="countdown-screen bg-success {{ (vm.turnStep === 2) ? 'show' : 'hidden' }}">
+                    <h1>00:{{vm.secondsRemaining}}</h1>
+                    
+                    <div class="success-message bg-info" ng-if="vm.viewSecretPhraseSuccessMessage">
+                        {{vm.successMessage}}
+                        <button class="btn btn-primary btn-confirm" ng-click="vm.answeredCorrectConfirmed()">Confirm</button>
+                        <button class="btn btn-default btn-confirm" ng-click="vm.answeredCorrectCanceled()">Cancel</button>
+                    </div>
+
+                    <button class="btn btn-success btn-lg" ng-click="vm.answeredCorrect()" 
+                        ng-if="!vm.viewSecretPhraseSuccessMessage">Answered Correct!</button>
+                </div>
+
+
+
+
+                <div id="timeExpiredScreen" class="time-expired-screen bg-danger {{ (vm.turnStep === 3) ? 'show' : 'hidden' }}">
+                    <h2>Your time has expired.</h2>
+                    <h3>No points awarded to {{vm.activeTeam}}</h3>
+                    <button class="btn btn-default" ng-click="vm.nextTurn()">Next Turn</button>
+                </div>
+
+
+
+
+            <div class="button-bar">
+              <button class="button button-clear button-positive" ng-click="vm.showSecretPhrase()">Answer</button>
+              <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
+            </div>
+          </div>
+        </swipe-card>
+      </swipe-cards>
+
+
+    </ion-pane>
