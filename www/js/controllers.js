@@ -22,68 +22,6 @@ angular.module('app.controllers', [])
 
 
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicSlideBoxDelegate) {
-
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-    $scope.testWord = "TestWord";
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-    $scope.cardText = "Swipe Mup UP!";
-
-    $scope.swipe = function($event) {
-        console.log($event);
-        $scope.bounceOutUp();
-    };
-
-    
-
-    $scope.bounceOutUp = function(){
-        $scope.cardStyle = "bounceOutUp";
-
-       $timeout(function() {
-          $scope.cardText = "";
-        }, 500);
-    
-    }
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-
-
-})
-
 
 .controller('GameController', ['$scope', '$window', '$interval', '$timeout', '$ionicModal', '$http', '$ionicSwipeCardDelegate',
     function($scope, $window, $interval, $timeout, $ionicModal, $http, $ionicSwipeCardDelegate) {
@@ -226,7 +164,7 @@ angular.module('app.controllers', [])
             $scope.turnStep = 2;
             $scope.stopTimer();
             $scope.viewSecretPhraseSuccessMessage = true;
-            $scope.successMessage = "Success!  Your team has correctly guessed the 'Secret Phrase' please click the confirm button below to add a point to your team's score and begin the next turn.";
+            $scope.successMessage = "Success!<br> Your team has correctly guessed the 'Secret Phrase' please click the confirm button below to add a point to your team's score and begin the next turn.";
         };
         $scope.answeredCorrectCanceled = function() {
             $scope.turnStep = 2;
@@ -421,16 +359,15 @@ angular.module('app.controllers', [])
     $scope.intervalHandle;
     $scope.phrases = [];
     $scope.cards = [];
-    $scope.turnCount = 0;
+    $scope.turnCount = -1;
     $scope.turnStep = 0;
     $scope.team1Score = 0;
     $scope.team2Score = 0;
     //$scope.activePlayer = activePlayer;
     //$scope.getPhrases = getPhrases;
-    $scope.activeTeam = "Team1";
-    $scope.teamColor = "bg-team1";
+    $scope.activeTeam = "";
+    $scope.teamColor = "light";
     $scope.gameStarted = false;
-    $scope.turnCount = -1;
 
     $scope.init = function() {
         $scope.maxValue = 10;
@@ -438,7 +375,7 @@ angular.module('app.controllers', [])
         $scope.started = false;
         $scope.showResults = false;
         $scope.turnCount = 0;
-
+        $scope.timeExpired = false;
     };
 
     $scope.start = function () {
@@ -448,8 +385,9 @@ angular.module('app.controllers', [])
         $scope.canDeal = true;
         $scope.showResults = false;
         $scope.turnCount = 0;
-        $scope.activePhrase = 0; //begin pre-active-phrase process...
-        $scope.addCard();
+        $scope.activePhrase = ""; //begin pre-active-phrase process...
+        $scope.nextTurn();
+        //$scope.addCard();
         return;
     };
 
@@ -503,7 +441,7 @@ angular.module('app.controllers', [])
     $scope.cards.push(angular.extend({}, newCard));
   };
 
-    $scope.addOptionalCards = function() {
+  /*  $scope.addOptionalCards = function() {
     var newCardA = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCardA.id = Math.random();
     var newCardB = cardTypes[Math.floor(Math.random() * cardTypes.length)];
@@ -516,25 +454,44 @@ angular.module('app.controllers', [])
     }
     console.log(newCards);
     $scope.cards.push(angular.extend({}, newCards));
-  };
+  }; */
 
-  $scope.onSwipeUp = function(){
+  $scope.onSwipeUp = function(index){
     console.log("You have just swipped up.");
     if ($scope.turnStep === 0){
 
-        $scope.cardDestroyed(index)
+         $scope.cardDestroyed(index);
         $( "#start-card" ).addClass( "hidden" );
         $scope.start();
+
       }
-    $scope.nextTurn();
+
+      if ($scope.turnStep === 3) {
+        $scope.cardDestroyed(index);
+        $( "#next-turn-card" ).addClass( "hidden" );
+        $scope.nextTurn();
+      }
+        
+      $scope.nextTurn();
+
   };
+
+
+  $scope.onHold = function(index){
+    $scope.showSecretPhrase();
+    
+  };
+  $scope.onDragDown = function(index){
+    
+  };
+
 
   $scope.onSwipeDown = function(index){
     console.log("You have just swipped DOWN.");
     
       if ($scope.turnStep === 0){
 
-        $scope.cardDestroyed(index)
+        $scope.cardDestroyed(index);
         $( "#start-card" ).addClass( "hidden" );
         $scope.start();
       }
@@ -545,38 +502,26 @@ angular.module('app.controllers', [])
 
   $scope.onSwipeRight = function(index) {
       console.log("You have swipped Right");
-      if ($scope.turnStep === 0){
-
-        $scope.cardDestroyed(index)
-        $( "#start-card" ).addClass( "hidden" );
-        $scope.start();
-      }
       $scope.addCard();
-      $scope.goAway();
   };
 
   $scope.onSwipeLeft = function(index) {
       console.log("You have swipped Left");
-      if ($scope.turnStep === 0){
-
-        $scope.cardDestroyed(index)
-        $( "#start-card" ).addClass( "hidden" );
-        $scope.start();
-      }
-      
      $scope.addCard();
-  };
+   };
 
 
 
 $scope.showPreSecretPhrase = function(){
+    $scope.selectActiveTeam();
     $scope.activePhrase = "";
     $scope.turnStep = 0;
-    $scope.selectActiveTeam();
+   // $( ".pre-secret-phrase" ).addClass( " flipInY" );
 };
 $scope.showSecretPhrase = function(){
     $scope.activePhrase = "Jump like a duck";
     $scope.turnStep = 1;
+   // $( ".secret-phrase" ).addClass( " flipInY" );
 };
 $scope.startCountdown = function(){
     $scope.turnStep = 2;
@@ -585,9 +530,7 @@ $scope.startCountdown = function(){
 $scope.answeredCorrect = function(){
     $scope.turnStep = 2;
     $scope.stopTimer();
-
     $scope.viewSecretPhraseSuccessMessage = true;
-
     $scope.openModal();
     $scope.successMessage = "Success!  Your team has correctly guessed the 'Secret Phrase' please click the confirm button below to add a point to your team's score and begin the next turn.";
 };
@@ -604,7 +547,8 @@ $scope.answeredCorrectConfirmed = function(){
     $scope.stopTimer();
     $scope.resetTimer();
     $scope.addPointToActiveTeam();
-    $scope.nextTurn();
+    //$scope.nextTurn();
+    //$scope.readyNextTurn();
 };
 $scope.stealPoint = function(){
     $scope.turnStep = 3;
@@ -614,26 +558,21 @@ $scope.stealPoint = function(){
 $scope.nextStep = function(){
     alert("Next Step");
     $scope.turnStep += 1;
+
+
 };
 $scope.addTeam1Point = function() {
     $scope.team1Score += 1;
-    $scope.cardDestroyed();
-    $scope.showResults = true;
-    $scope.results = "Team1 was awarded a point, congratulations!";
-    $timeout(function() {
-      $scope.hideResults();
-    }, 2000);
-    
+    $scope.readyNextTurn();
 };
 $scope.addTeam2Point = function() {
     $scope.team2Score += 1;
-    $scope.cardDestroyed();
-    $scope.results = "Team2 was awarded a point, congratulations!";
-    timeout(function() {
-      $scope.hideResults();
-    }, 2000);
-
+    $scope.readyNextTurn();
 };
+
+
+
+
 
 $scope.hideResults = function() {
     $scope.showResults = false;
@@ -646,9 +585,18 @@ $scope.addPointToActiveTeam = function() {
     
     if ($scope.activeTeam === "Team1"){
         $scope.addTeam1Point();
+        
     } else {
         $scope.addTeam2Point();
+        
     }
+};
+
+$scope.readyNextTurn = function(){
+    $scope.showResults = false;
+    $scope.timeExpired = false;
+    $scope.cardDestroyed(); 
+    $scope.turnStep = 3;
 };
 
 $scope.nextTurn = function(){
@@ -656,8 +604,9 @@ $scope.nextTurn = function(){
         $scope.gameOver = false;
         $scope.turnStep = 0;
         $scope.turnCount += 1; 
-        $scope.selectActiveTeam();
+        //$scope.selectActiveTeam();
         //$scope.resetTurn();
+        $scope.cardDestroyed();
         $scope.addCard();
         $scope.showPreSecretPhrase();
     } else {
@@ -669,7 +618,7 @@ $scope.nextTurn = function(){
 
 $scope.selectActiveTeam = function() {
 
-    if ($scope.turnCount % 2 == 0) {
+    if ($scope.turnCount % 2 == 0 && $scope.turnCount != 1) {
 
         $scope.activeTeam = "Team1";
         $scope.teamColor = "positive";
@@ -699,6 +648,8 @@ $scope.beginNewCountdown = function($scope, $interval) {
     var stop;
     
     $scope.startTimer = function() {
+     
+
       if ( angular.isDefined(stop) ) return;
       stop = $interval(function() {
         
@@ -710,11 +661,15 @@ $scope.beginNewCountdown = function($scope, $interval) {
             $scope.stopTimer();
             //$scope.stealPoint();
             $scope.resetTimer();
-            $scope.nextStep();
+            $scope.showTimeExpiredMessage();
+            $scope.readyNextTurn();
           }
         }, 100);// $interval
+        
     };
 
+
+    
     $scope.startBounusRound = function() {
       if ( angular.isDefined(stop) ) return;
       stop = $interval(function() {
@@ -723,7 +678,7 @@ $scope.beginNewCountdown = function($scope, $interval) {
           } else {
             $scope.stopTimer();
             $scope.resetTimer();
-            $scope.nextTurn();
+            $scope.readyNextTurn();
           }
         }, 100);// $interval
     };
@@ -747,11 +702,15 @@ $scope.beginNewCountdown = function($scope, $interval) {
 
     $scope.showTimeExpiredMessage = function() {
         $ionicBackdrop.retain();
+        $scope.showResults = true;
+        $scope.timeExpired = true;
+        $scope.timeExpiredMessage = "Your time has expired!!  Your team is awarded 0 points.";
         $timeout(function() {
-          $scope.timeExpired = true;
-          $scope.timeExpiredMessage = "Your time has expired!!  Your team is awarded 0 points.  Click 'Next Turn' button below to continue game.";
+            $scope.timeExpiredMessage = "";
+            $scope.showResults = false;
+            $scope.timeExpired = false;
           $ionicBackdrop.release();
-        }, 2000);
+        }, 3000);
       };
 
 
@@ -815,12 +774,6 @@ $scope.beginNewCountdown = function($scope, $interval) {
 
 
 
-
-  
-
-
-
-
     $scope.$on('$destroy', function() {
         $scope.stopTimer();
     });
@@ -844,6 +797,8 @@ $scope.beginNewCountdown = function($scope, $interval) {
     var card = $ionicSwipeCardDelegate.getSwipeableCard($scope);
     card.swipe();
   };
+
+
 })
 
 

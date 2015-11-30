@@ -9,36 +9,47 @@
     
     <div class="bar bar-subheader bar-transparent">
 
-        
-          <div class="title  {{ (turnStep === 0) ? 'show' : 'hidden' }}">
-              Swipe the card Up and hand the game controller to {{activeTeam}}. 
-          </div>
-          <div class="title  {{ (turnStep === 1) ? 'show' : 'hidden' }}">
-              You will have 60 seconds to act out the secret phrase above.<br>
-                Click button below to begin acting and start the countdown. 
-          </div>
-          <div class="title  {{ (turnStep === 2) ? 'show' : 'hidden' }}">
-              Hurry, hurry hurry!  You've got 60 seconse to act out the "Secret Phrase!"<br>
-                Press the green "Got It!" button if someone on your team guesses the phrase correctly.
-          </div>
+        <h2 class="instruction-text {{ (turnCount === -1) ? 'show' : 'hidden' }}">
+              Swipe the card UP to Start Game
+              <div class="arrow-box animated">
+                <i class="ion-ios-arrow-thin-up"></i>
+              </div>
+          </h2>
+          <h2 class="instruction-text {{ (turnStep === 0 && turnCount != -1) ? 'show' : 'hidden' }}">
+              {{activeTeam}}'s Up!<br> Choose a Secret Phrase to act out.
+          </h2>
+          <h2 class="instruction-text {{ (turnStep === 1) ? 'show' : 'hidden' }}">
+              These are Secret Phrases so remember to keep the cards hidden from others.
+          </h2>
+          <h2 class="instruction-text {{ (turnStep === 2) ? 'show' : 'hidden' }}">
+              Act out the Secret Phrase ...<br>
+              <div class="seconds-remaining">00:{{secondsRemaining}}</div>
+          </h2>
+          <h2 class="instruction-text {{ (turnStep === 3) ? 'show' : 'hidden' }}">
+              Swipe the card UP to begin next turn
+              <div class="arrow-box">
+                <i class="ion-ios-arrow-thin-up center-block animated"></i>
+              </div>
+          </h2>
+
 
     </div>
 
 
+           
                     
         <swipe-cards>      
 
-
-            <!-- Game Results -->
-            <div class="game-results" ng-if="showResults">
+  <!-- Game Results -->
+            <div class="game-results" ng-if="showTimeExpired">
                 <div class="result-text">
                     {{results}}
+                    {{timeExpiredMessage}}
                 </div>
             </div>
 
-
-          <swipe-card on-swipe-up="onSwipeUp()"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"  id="start-card">
-            Swipe down to Begin New Game
+          <swipe-card on-swipe-up="onSwipeUp($index)"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"  id="start-card">
+            Swipe UP to Begin New Game
             <div class="hidden">
                 <button class="yes-text">Yes</button>
                 <button class="no-text">No</button>
@@ -46,19 +57,27 @@
           </swipe-card>
 
 
+          <swipe-card class="card-00 {{ (turnStep === 3) ? 'show' : 'hidden' }}"
+            on-swipe-up="onSwipeUp($index)" on-destroy="cardDestroyed($index)"  id="next-turn-card">
+            Swipe UP to begin the next team's turn
+            <div class="hidden">
+                <button class="yes-text">Yes</button>
+                <button class="no-text">No</button>
+            </div>
+          </swipe-card>
 
-                      
+        
 
 
           <swipe-card 
             ng-repeat="card in cards"
-            on-card-swipe="cardSwiped($index)"
-            on-swipe-up="onSwipeUp()"
+            
             on-swipe-right="onSwipeRight($index)"
             on-swipe-down="onSwipeDown($index)"
             on-swipe-left="onSwipeLeft($index)" 
+            on-hold="onHold()"
             on-destroy="cardDestroyed($index)" 
-            class="card card-{{$index}}">
+            class="card-{{$index}}">
             <div ng-controller="CardCtrl">
               
                 <div id="activeCard">
@@ -66,32 +85,37 @@
                     
                     <div id="preSecretPhrase" class="pre-secret-phrase {{ (turnStep === 0) ? 'show' : 'hidden' }}">
                         <h2>
-                            Top Secret!!
+                            Secret Phrase #{{$index}}
                         </h2>
                         <p>
-                            Drag the bottom of the card up to revel the secret message, press the "Go" button when you are ready to beging acting out the secret phrase.
+                            HOLD down to revel the secret message
                         </p>
-                        <button class="button button-balanced" ng-click="showSecretPhrase()">Show Secret Phrase</button>
-                        
                     </div>
 
 
-                    <div id="secretPhrase" class="secret-phrase {{ (turnStep === 1) ? 'show' : 'hidden' }}">
-                        
-
-                        <button class="button button-balanced" ng-click="startCountdown()">GO!!</button>
-                        
-
-                        <h2 class="secret-phrase">
-                            {{card.phrase}}
+                    <div id="secretPhrase" class="secret-phrase animated {{ (turnStep === 1) ? 'show' : 'hidden' }}">
+                        <h2>
+                            Top Secret!!
                         </h2>
-                    
+                        
+                        <h3 class="secret-phrase">
+                            {{card.phrase}}
+                        </h3>
+
+                        <button class="button button-balanced button-round" ng-click="startCountdown()">GO!!</button>                        
+
+                        <p>
+                            Press the "Go" button to select phrase and start timer.
+                        </p>
 
                     </div>
 
 
-                    <div id="publicCountdownScreen" class="countdown-screen {{ (turnStep === 2) ? 'show' : 'hidden' }}">
-                        <h1>00:{{secondsRemaining}}</h1>
+                    <div id="publicCountdownScreen" class="countdown-screen animated {{ (turnStep === 2) ? 'show' : 'hidden' }}">
+                        
+                        <p>
+                            Press the green "Got It!" button if someone on your team guesses the phrase correctly.
+                        </p>
                         
                         <div class="success-message bg-info" ng-if="viewSecretPhraseSuccessMessage">
                             {{successMessage}}
@@ -99,19 +123,17 @@
                             <button class="button button-light btn-confirm" ng-click="answeredCorrectCanceled()">Cancel</button>
                         </div>
 
-                        <button class="btn btn-success btn-lg" ng-click="answeredCorrect()" 
-                            ng-if="!viewSecretPhraseSuccessMessage">Answered Correct!</button>
-                        <button ng-click="openPopover($event)">Open Popover</button>
-                        <button ng-click="action()">Action</button>
+                        <button class="button button-positive" ng-click="answeredCorrect()" 
+                            ng-if="!viewSecretPhraseSuccessMessage">Got It!</button>
                     </div>
 
 
 
 
-                    <div id="timeExpiredScreen" class="time-expired-screen {{ (turnStep === 3) ? 'show' : 'hidden' }}">
+                    <div id="timeExpiredScreen" class="time-expired-screen {{ (turnStep === 4) ? 'show' : 'hidden' }}">
                         <h2>Your time has expired.</h2>
                         <h3>No points awarded to {{activeTeam}}</h3>
-                        <button class="btn btn-default" ng-click="nextTurn()">Next Turn</button>
+                        <button class="btn btn-default" ng-click="readyNextTurn()">Next Turn</button>
                     </div>
 
                     <div class="hidden">
@@ -130,8 +152,8 @@
 
         <div class="bar bar-footer bar-transparent">
           <div class="title">
-            <span class="pull-left"><b>Team1 Score:</b> {{team1Score}}</span>
-            <span class="pull-right"><b>Team2 Score:</b> {{team2Score}}</span>
+            <span class="team-score pull-left"><b>Team1 Score: {{team1Score}}</b></span>
+            <span class="team-score pull-right"><b>Team2 Score: {{team2Score}}</b></span>
           </div>
         </div>
 

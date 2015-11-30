@@ -19,9 +19,11 @@ $ionicons-font-path: '../lib/ionic/fonts' !default;
 
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Satisfy);
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two|Open+Sans+Condensed:300,700|Sigmar+One);
+@import 'animate/animate';
 
 body {
  font-family: 'Open Sans Condensed', sans-serif;
+ -webkit-backface-visibility: hidden;
  background-color: #60d7a9;
  margin-top: 50px;
  color: #ccc;
@@ -102,28 +104,23 @@ p {
   text-align: center;
 }
 
-.ionic-logo {
-  display: block;
-  margin: 15px auto;
-  width: 96px;
-  height: 96px;
-}
-
-h2.secret-phrase {
-  font-family: 'Shadows Into Light Two', cursive;
-  font-size: 32px;
-  color: #000;
-  text-align: center;
-  margin: 15px auto;
-}
-
 .pane {
-  background-color: #479687;
+  background-color: #60d7a9;
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.bar.bar-header h1.title {
+  text-transform: uppercase;
+  color: #000!important;
+  font-size: 1.5em;
+  letter-spacing: 4px;
+  width: 100%;
+  text-align: center;
+  word-spacing: -0.3em;
 }
 
 .bar.bar-transparent {
@@ -133,8 +130,91 @@ h2.secret-phrase {
 }
 
 .bar .title {
-  color: #eee;
+  color: #fff;
 }
+
+.bar.bar-subheader {
+  min-height: 44px;
+  height: 88px;
+
+    h2 {
+      color: #fff!important;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      font-size: 2.2em;
+      text-align: center;
+      vertical-align: top;
+      padding: 15px;
+      word-wrap: break-word;
+      overflow: visible;
+    }
+
+    div.arrow-box {
+      color: #fff;
+      font-size: 2.4em;
+      text-align: center;
+      margin: 25px auto;
+
+      i {
+        color: #fff;
+      }
+    }
+  
+}
+
+
+
+.size-96 {
+  font-size: 96px;
+}
+
+.size-20 {
+  font-size: 20px;
+}
+
+.size-40 {
+  font-size: 40px;
+}
+
+
+  .bounce {
+    @include bounce(
+    );
+  }
+  .shake {
+    @include shake(
+      $duration: 1s,
+      $count: 2,
+      $delay: .2s,
+      $function: ease, 
+      $fill: both
+    );
+  }
+
+  .fadeIn {
+    @include fadeIn();
+  }
+
+  .flipInY {
+    @include flipInY();
+  }
+
+  .flipInX {
+    @include flipInX();
+  }
+
+  .bounceIn {
+    @include bounceIn();
+  }
+
+  .pulse {
+    @include pulse();
+  }
+
+  .rotateIn {
+    @include rotateIn();
+  }
 
 .dont-break-out {
   overflow-wrap: break-word;
@@ -150,7 +230,6 @@ h2.secret-phrase {
 
 #messageContainer{
   position: fixed;
-  left: 10%;
   top: 0;
   width:100%;
   height: 100px;
@@ -158,6 +237,7 @@ h2.secret-phrase {
   border: 1px solid #fff;
   color: #fff;
   word-wrap: break-word;
+  word-break: keep-all;
 
   p.detail {
     font-family: 'Open Sans Condensed', sans-serif;
@@ -181,11 +261,20 @@ h2.secret-phrase {
 }
 
 #activeCard {
+  width: 300px;
+  height: 350px;
+  top: 0;
+  left: 0;
+  background-size: cover;
   box-sizing: border-box;
-  
+}
+
+
+
   #preSecretPhrase {
     box-sizing: border-box;
     text-align: center;
+    background-size: cover;
 
       h2 {
         font-family: 'Open Sans Condensed', sans-serif;
@@ -199,65 +288,102 @@ h2.secret-phrase {
       p {
         font-family: 'Open Sans Condensed', sans-serif;
         font-weight: 300;
-        font-size: 18px;
+        font-size: 16px;
         color: #000;
         text-align: center;
         line-height: 1.345;
+        word-break: keep-all;
        }
       button {
-        margin: 15px auto;
+        margin: 55px auto;
         bottom:0;
+        text-align: center;
       }
 
   }
   
   #secretPhrase {
     box-sizing: border-box;
+    text-align: center;
+    background-size: cover;
+
+    h2 {
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      color: #000;
+      text-align: center;
+      padding: 0;
+      margin: 35px auto;
+    }
+
+    h3.secret-phrase {
+      font-family: 'Shadows Into Light Two', cursive;
+      font-size: 32px;
+      color: #000;
+      text-align: center;
+      margin: 15px auto;
+    }
+
+    p {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        color: #000;
+        text-align: center;
+        line-height: 1.345;
+        word-break: keep-all;
+       }
+
   }
 
   #publicCountdownScreen {
     box-sizing: border-box;
+    text-align: center;
+    background-size: cover;
 
-    h1 {
-      font-family: 'Lora', serif;
+    h2 {
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      color: #000;
       text-align: center;
-      font-wieght: bold;
-      font-size: 24px;
-      margin: 15px auto;
-      color: #fff;
-      width:100%;
-      text-shadow: 2px 2px #000;
-      opacity: 1.0;
+      padding: 0;
+      margin: 35px auto;
     }
-    #timeExpiredScreen {
-      box-sizing: border-box;
 
-    }
+    p {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        color: #000;
+        text-align: center;
+        line-height: 1.345;
+        word-break: keep-all;
+       }
+    
   }
-
-
-
-}
 
 
 
 
 .swipe-cards {
-  position: fixed;
+  position: relative;
+  display: block;
 }
 
 swipe-card {
-  display: none;
-  position: fixed;
+  display: block;
+  position: relative;
   -webkit-transform: scale(1,1);
-  left: 50%;
-  top: 60%;
   width: 300px;
   height: 350px;
-  margin-left: -150px;
-  margin-top: -150px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 15em;
   box-sizing: border-box;
   background-color: rgb(255,255,255);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   overflow: hidden;
   -webkit-animation-fill-mode: forwards;
@@ -272,18 +398,27 @@ swipe-card .title {
 }
 
 
-swipe-card .image {
-  overflow: hidden;
-  max-height: 210px;
-}
-swipe-card .button {
-  border: none;
-}
-swipe-card .image img {
-  width: 100%;
-  border-radius: 0px 0px 4px 4px;
+.card-1 {
+  background-color: red!important;
 }
 
+
+#next-turn-card {
+  color: #fff;
+  background-color: #1abc9c;
+  line-height: 300px;
+  word-wrap: break-word;
+  border: 6px solid #fff;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    line-height: 40px;
+    width: 200px;
+    font-size: 30px;
+    vertical-align: middle;
+  }
+}
 
 #start-card {
   color: #fff;
@@ -304,6 +439,18 @@ swipe-card .image img {
 #footer .button {
   color: #fff;
 }
+
+
+
+.bar .bar-footer {
+  .team-score {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
 
 @-webkit-keyframes bounceIn {
   0% {
@@ -365,6 +512,15 @@ swipe-card.pop-in {
 }
 
 
+.showFlipInX {
+  animation: 1s flipInX;
+  display: block!important;
+}
+.hiddenFlipInX {
+  animation: 1s flipInX;
+  display: none!important;
+}
+
 
 
 .active-team-wrapper {
@@ -379,50 +535,6 @@ swipe-card.pop-in {
   background-color: red;
 }
 
-
-.blue {
-    background-color: blue;
-}
-
-.red {
-    background-color: red;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.pink {
-    background-color: pink;
-}
-
-.slider {
-  height: 100%;
-}
-.slider-slide {
-  padding-top: 80px;
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  font-weight: 300;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-#logo {
-  margin: 30px 0px;
-}
-#list {
-  margin: 30px auto;
-  width: 170px;
-  font-size: 20px;
-}
-#list ol {
-  margin-top: 30px;
-}
-#list ol li {
-  margin: 10px 0px;
-  list-style: decimal;
-  text-align: left;
-}
 
 /** Scoreboard **/
 .scoreboard {
@@ -452,19 +564,20 @@ swipe-card.pop-in {
 
 /** Results **/
 .game-results {
-  z-index: 10;
+  
   width: 100%;
-  top: 0;
-  position: absolute;
-  background-image: url('img/debut-dark.png');
+  height: 100%;
+
 
     .result-text {
-      font-family: 'Sigmar One', cursive;
-      color: #000;
-      width:100%;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      min-width: 320px;
+      max-width: 600px;
       line-height: 1.245;
-      font-size: 42px;
-      text-shadow: 2px 2px #ccc;
+      text-align: center;
+      font-size: 32px;
       opacity: 1.0;
     }
 }
@@ -576,3 +689,92 @@ the CSS classes below will be transitioned despite them being defined as regular
   animation: 1s disappear;
   display: none!important;
 }
+
+
+
+
+@media (max-width: 767px) {      
+    
+  .bar.bar-header h1.title {
+    text-transform: uppercase;
+    color: #000!important;
+    font-size: 1.0em;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: center;
+    word-spacing: 0;
+  }
+
+  .bar.bar-subheader {
+    min-height: 44px;
+    height: 44px;
+    
+    h2 {
+      color: #fff!important;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      font-size: 1.8em;
+      text-align: center;
+      vertical-align: top;
+      padding: 5px;
+      margin-top: 0;
+      word-wrap: break-word;
+      overflow: visible;
+    }
+
+    div.arrow-box {
+      color: #fff;
+      font-size: 1em;
+      text-align: center;
+      margin: 5px auto;
+
+      i {
+        color: #fff;
+      }
+    }
+  }
+
+#activeCard {
+  width: 300px;
+  height: 325px;
+  padding:0;
+  margin:0;
+  top: 0;
+  left: 0;
+}
+
+  .swipe-cards {
+    position: relative;
+    display: block;
+  }
+
+  swipe-card {
+    display: block;
+    position: relative;
+    -webkit-transform: scale(1,1);
+    width: 300px;
+    height: 325px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 14em;
+    box-sizing: border-box;
+    background-color: rgb(255,255,255);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-animation-fill-mode: forwards;
+    color: #000;
+  }
+
+  swipe-card .title {
+    height: 40px;
+    padding: 15px;
+    line-height: 30px;
+    color: #444;
+  }
+
+
+
+}
+
