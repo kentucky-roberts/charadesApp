@@ -19,7 +19,11 @@ $ionicons-font-path: '../lib/ionic/fonts' !default;
 
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Satisfy);
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two|Open+Sans+Condensed:300,700|Sigmar+One);
-@import 'animate/animate';
+
+@import 'site';
+@import 'button-ios-rounded';
+@import 'clock';
+@import 'page-animations';
 
 body {
  font-family: 'Open Sans Condensed', sans-serif;

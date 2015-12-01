@@ -11,9 +11,16 @@
 
         <h2 class="instruction-text {{ (turnCount === -1) ? 'show' : 'hidden' }}">
               Swipe the card UP to Start Game
-              <div class="arrow-box animated">
+
+
+              <div class="arrow-box animated bounce">
                 <i class="ion-ios-arrow-thin-up"></i>
               </div>
+
+
+
+
+
           </h2>
           <h2 class="instruction-text {{ (turnStep === 0 && turnCount != -1) ? 'show' : 'hidden' }}">
               {{activeTeam}}'s Up!<br> Choose a Secret Phrase to act out.
@@ -30,6 +37,7 @@
               <div class="arrow-box">
                 <i class="ion-ios-arrow-thin-up center-block animated"></i>
               </div>
+
           </h2>
 
 
@@ -50,6 +58,7 @@
 
           <swipe-card on-swipe-up="onSwipeUp($index)"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"  id="start-card">
             Swipe UP to Begin New Game
+            
             <div class="hidden">
                 <button class="yes-text">Yes</button>
                 <button class="no-text">No</button>
