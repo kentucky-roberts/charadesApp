@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- Created with Ai->Canvas Export Plug-In Version 1.2 (Mac)   -->
+<!-- By Mike Swanson (http://blog.mikeswanson.com/)             -->
+
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <title>canvas</title>
+  <script src="Ai2CanvasAnimation.js"></script>
+  <script>
+
+    // Main canvas and context references
+    var canvas;
+    var ctx;
+
+    // Frames per second
+    var fps = 60.0;
+
+    function init() {
+
+      // Set main canvas and context references
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext("2d");
+
+      // Initialize animations
+      cardbg.alphaClock = new clock(2.00, 0.00, 1, false, 1, linear, 1.0, 1.00, 0.0000);
+
+      // Start animation clocks
+      cardbg.alphaClock.start();
+
+      // Set animation timer
+      setInterval(drawFrame, (1000 / fps));
+    }
+
+    function updateAnimations() {
+
+      // Update animation clocks
+      updateAllClocks();
+    }
+
+    function drawFrame() {
+
+      // Update animations
+      updateAnimations();
+
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      screen(ctx);
+
+      phraseA(ctx);
+
+      society(ctx);
+
+      guy(ctx);
+
+      ctx.save();
+      ctx.globalAlpha = cardbg.alphaClock.value;
+      cardbg(ctx);
+      ctx.restore();
+
+      hands(ctx);
+
+      civilized(ctx);
+
+      charades(ctx);
+
+      against(ctx);
+    }
+
+    function screen(ctx) {
+
+      // screen
+      ctx.drawImage(document.getElementById("image1"), 19.9, -0.5);
+    }
+
+    function phraseA(ctx) {
+
+      // phraseA
+      ctx.drawImage(document.getElementById("image2"), 167.0, 398.4);
+    }
+
+    function society(ctx) {
+
+      // society
+      ctx.drawImage(document.getElementById("image3"), 248.7, 561.3);
+    }
+
+    function guy(ctx) {
+
+      // guy
+      ctx.drawImage(document.getElementById("image4"), -0.4, 422.5);
+    }
+
+    function cardbg(ctx) {
+
+      // cardbg
+      ctx.drawImage(document.getElementById("image5"), 53.9, 14.1);
+    }
+
+    function hands(ctx) {
+
+      // hands
+      ctx.drawImage(document.getElementById("image6"), 104.9, 182.4);
+    }
+
+    function civilized(ctx) {
+
+      // civilized
+      ctx.drawImage(document.getElementById("image7"), 207.5, 514.9);
+    }
+
+    function charades(ctx) {
+
+      // charades
+      ctx.drawImage(document.getElementById("image8"), 73.9, 36.5);
+    }
+
+    function against(ctx) {
+
+      // against
+      ctx.drawImage(document.getElementById("image9"), 107.7, 104.7);
+    }
+  </script>
+ </head>
+ <body onload="init()">
+   <canvas id="canvas" width="397" height="630"></canvas>
+   <img alt="screen" id="image1" style="display: none" src="screen.png" />
+   <img alt="phraseA" id="image2" style="display: none" src="phraseA.png" />
+   <img alt="society" id="image3" style="display: none" src="society.png" />
+   <img alt="guy" id="image4" style="display: none" src="guy.png" />
+   <img alt="cardbg" id="image5" style="display: none" src="card-bg.png" />
+   <img alt="hands" id="image6" style="display: none" src="hands.png" />
+   <img alt="civilized" id="image7" style="display: none" src="civilized.png" />
+   <img alt="charades" id="image8" style="display: none" src="charades.png" />
+   <img alt="against" id="image9" style="display: none" src="against.png" />
+ </body>
+</html>

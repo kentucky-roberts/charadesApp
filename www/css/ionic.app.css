@@ -17186,6 +17186,136 @@ a.button {
   -webkit-animation: bounceFadeInAnimation 5s infinite;
   -o-animation: bounceFadeInAnimation 5s infinite; }
 
+.pounce-down {
+  animation: animationFrames linear .09s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+  /*when the spec is finished*/
+  -webkit-animation: animationFrames linear .09s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode: forwards;
+  /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFrames linear .09s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode: forwards;
+  /*FF 5+*/
+  -o-animation: animationFrames linear .09s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode: forwards;
+  /*Not implemented yet*/
+  -ms-animation: animationFrames linear .09s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode: forwards;
+  /*IE 10+*/ }
+
+@keyframes animationFrames {
+  0% {
+    transform: translate(-23px, -182px); }
+  100% {
+    transform: translate(-56px, 55px); } }
+
+@-moz-keyframes animationFrames {
+  0% {
+    -moz-transform: translate(-23px, -182px); }
+  100% {
+    -moz-transform: translate(-56px, 55px); } }
+
+@-webkit-keyframes animationFrames {
+  0% {
+    -webkit-transform: translate(-23px, -182px); }
+  100% {
+    -webkit-transform: translate(-56px, 55px); } }
+
+@-o-keyframes animationFrames {
+  0% {
+    -o-transform: translate(-23px, -182px); }
+  100% {
+    -o-transform: translate(-56px, 55px); } }
+
+@-ms-keyframes animationFrames {
+  0% {
+    -ms-transform: translate(-23px, -182px); }
+  100% {
+    -ms-transform: translate(-56px, 55px); } }
+
+.clock {
+  /* The .clock div. Created dynamically by jQuery */
+  background-color: #252525;
+  height: 200px;
+  width: 200px;
+  position: relative;
+  overflow: hidden;
+  float: left; }
+
+.clock .rotate {
+  /* There are two .rotate divs - one for each half of the background */
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 0;
+  left: 0; }
+
+.rotate.right {
+  display: none;
+  z-index: 11; }
+
+.clock .bg, .clock .front {
+  width: 100px;
+  height: 200px;
+  background-color: #252525;
+  position: absolute;
+  top: 0; }
+
+.clock .display {
+  /* Holds the number of seconds, minutes or hours respectfully */
+  position: absolute;
+  width: 200px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  z-index: 20;
+  color: #F5F5F5;
+  font-size: 60px;
+  text-align: center;
+  top: 65px;
+  left: 0;
+  /* CSS3 text shadow: */
+  text-shadow: 4px 4px 5px #333333; }
+
+/* The left part of the background: */
+.clock .bg.left {
+  left: 0; }
+
+/* Individual styles for each color: */
+.orange .bg.left {
+  background: url(img/bg_orange.png) no-repeat left top; }
+
+.green .bg.left {
+  background: url(img/bg_green.png) no-repeat left top; }
+
+.blue .bg.left {
+  background: url(img/bg_blue.png) no-repeat left top; }
+
+/* The right part of the background: */
+.clock .bg.right {
+  left: 100px; }
+
+.orange .bg.right {
+  background: url(img/bg_orange.png) no-repeat right top; }
+
+.green .bg.right {
+  background: url(img/bg_green.png) no-repeat right top; }
+
+.blue .bg.right {
+  background: url(img/bg_blue.png) no-repeat right top; }
+
+.clock .front.left {
+  left: 0;
+  z-index: 10; }
+
 .pt-perspective {
   position: relative;
   width: 100%;
@@ -17499,6 +17629,79 @@ body {
   margin-top: 50px;
   color: #ccc; }
 
+.bg-time-expired {
+  background-color: red;
+  color: #000;
+  width: 100%;
+  height: 100%; }
+  .bg-time-expired .bar {
+    background-color: red; }
+  .bg-time-expired .bar.bar-header h1.title {
+    text-transform: uppercase;
+    color: #fff !important;
+    font-size: 1.0em;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: center;
+    word-spacing: 0; }
+  .bg-time-expired h1 {
+    position: relative;
+    margin-top: 25px;
+    font-size: 38px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325; }
+  .bg-time-expired p {
+    position: relative;
+    padding: 0px 25px 25px 25px;
+    font-size: 34px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+    font-weight: 300; }
+  .bg-time-expired .button-group {
+    position: relative;
+    margin: 100px;
+    text-align: center; }
+
+.bg-success {
+  background-color: #33cd5f;
+  color: #000;
+  width: 100%;
+  height: 100%; }
+  .bg-success .bar {
+    background-color: #33cd5f; }
+  .bg-success .bar.bar-header h1.title {
+    text-transform: uppercase;
+    color: #fff !important;
+    font-size: 1.0em;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: center;
+    word-spacing: 0; }
+  .bg-success h1 {
+    position: relative;
+    margin-top: 25px;
+    font-size: 38px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325; }
+  .bg-success p {
+    position: relative;
+    padding: 0px 25px 25px 25px;
+    font-size: 34px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+    font-weight: 300; }
+  .bg-success .button-group {
+    position: relative;
+    margin: 100px;
+    text-align: center; }
+
+.bg-Team1 {
+  background-color: #1abc9c !important; }
+
 .bg-primary {
   background-color: #1abc9c !important; }
 
@@ -17510,45 +17713,8 @@ body {
   height: 350px;
   width: 350px; }
 
-.pt-page-current, .no-js .pt-page {
-  visibility: visible;
-  z-index: 1; }
-
-.pt-page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  overflow: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d; }
-
-.pt-page h1 strong {
-  color: rgba(0, 0, 0, 0.1); }
-
-.pt-page h1 {
-  position: absolute;
-  font-weight: 300;
-  font-size: 4.4em;
-  line-height: 1;
-  letter-spacing: 6px;
-  margin: 0;
-  top: 12%;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  word-spacing: -0.3em; }
-
 h1 {
+  text-shadow: rgba(0, 0, 0, 0.4);
   display: block;
   font-size: 2em;
   -webkit-margin-before: 0.67em;
@@ -17574,9 +17740,9 @@ p {
 
 .bar.bar-header h1.title {
   text-transform: uppercase;
-  color: #000 !important;
+  color: #fff !important;
   font-size: 1.5em;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   width: 100%;
   text-align: center;
   word-spacing: -0.3em; }
@@ -17593,6 +17759,7 @@ p {
   min-height: 44px;
   height: 88px; }
   .bar.bar-subheader h2 {
+    text-shadow: rgba(0, 0, 0, 0.4);
     color: #fff !important;
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 700;
@@ -17678,6 +17845,43 @@ p {
   -ms-animation-delay: 0.2s;
   -o-animation-delay: 0.2s;
   animation-delay: 0.2s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.tada {
+  -webkit-animation-name: tada;
+  -moz-animation-name: tada;
+  -ms-animation-name: tada;
+  -o-animation-name: tada;
+  animation-name: tada;
+  -webkit-animation-iteration-count: 1s;
+  -moz-animation-iteration-count: 1s;
+  -ms-animation-iteration-count: 1s;
+  -o-animation-iteration-count: 1s;
+  animation-iteration-count: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
   -webkit-animation-timing-function: ease;
   -moz-animation-timing-function: ease;
   -ms-animation-timing-function: ease;
@@ -17916,6 +18120,80 @@ p {
   -o-backface-visibility: hidden;
   backface-visibility: hidden; }
 
+.flipInX {
+  -webkit-animation-name: flipInX;
+  -moz-animation-name: flipInX;
+  -ms-animation-name: flipInX;
+  -o-animation-name: flipInX;
+  animation-name: flipInX;
+  -webkit-animation-iteration-count: 1s;
+  -moz-animation-iteration-count: 1s;
+  -ms-animation-iteration-count: 1s;
+  -o-animation-iteration-count: 1s;
+  animation-iteration-count: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.flipOutX {
+  -webkit-animation-name: flipOutX;
+  -moz-animation-name: flipOutX;
+  -ms-animation-name: flipOutX;
+  -o-animation-name: flipOutX;
+  animation-name: flipOutX;
+  -webkit-animation-iteration-count: 2;
+  -moz-animation-iteration-count: 2;
+  -ms-animation-iteration-count: 2;
+  -o-animation-iteration-count: 2;
+  animation-iteration-count: 2;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
 .dont-break-out {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -17926,32 +18204,6 @@ p {
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto; }
-
-#messageContainer {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100px;
-  box-sizing: border-box;
-  border: 1px solid #fff;
-  color: #fff;
-  word-wrap: break-word;
-  word-break: keep-all; }
-  #messageContainer p.detail {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 1.125;
-    text-align: left; }
-  #messageContainer p.game-messages {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 700;
-    line-height: 1.225;
-    font-size: 18px;
-    text-align: center;
-    vertical-align: middle;
-    padding: 15px;
-    text-shadow: 1px 1px #ccc; }
 
 #activeCard {
   width: 300px;
@@ -18034,18 +18286,37 @@ p {
     line-height: 1.345;
     word-break: keep-all; }
 
+swipe-card.card-0 {
+  -webkit-transform: translate3d(0, 0px, 0);
+  transform: translate3d(0, 0px, 0);
+  top: 0px;
+  z-index: 10; }
+
+swipe-card.card-1 {
+  -webkit-transform: translate3d(0, 4px, 0);
+  transform: translate3d(0, 4px, 0);
+  z-index: 9; }
+
+swipe-card.card-2 {
+  -webkit-transform: translate3d(0, 8px, 0);
+  transform: translate3d(0, 8px, 0);
+  z-index: 8; }
+
+.scroll-bg {
+  background: url("http://ioniconf.com/img/bg.jpg") no-repeat center center fixed;
+  background-size: cover; }
+
 .swipe-cards {
-  position: relative;
+  position: absolute;
   display: block; }
 
 swipe-card {
-  display: block;
-  position: relative;
+  position: absolute;
   -webkit-transform: scale(1, 1);
   width: 300px;
   height: 350px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 15em;
+  margin-left: 15em;
   margin-top: 15em;
   box-sizing: border-box;
   background-color: white;
@@ -18193,6 +18464,9 @@ swipe-card.pop-in {
     text-align: center;
     font-size: 32px;
     opacity: 1.0; }
+
+div.seconds-remaining {
+  font-size: 50px; }
 
 .yes-text {
   position: absolute;

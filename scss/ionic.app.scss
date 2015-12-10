@@ -16,12 +16,14 @@ $dark:                            #444 !default;
 */
 $ionicons-font-path: '../lib/ionic/fonts' !default;
 @import 'www/lib/ionic/scss/ionic';
-
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Satisfy);
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two|Open+Sans+Condensed:300,700|Sigmar+One);
+@import 'settings';
+@import 'animate';
+@import 'animate/animate';
+
 
 @import 'site';
-@import 'button-ios-rounded';
 @import 'clock';
 @import 'page-animations';
 
@@ -31,6 +33,120 @@ body {
  background-color: #60d7a9;
  margin-top: 50px;
  color: #ccc;
+}
+
+.bg-time-expired {
+  background-color: red;
+  color: #000;
+  width: 100%;
+  height: 100%;
+
+    .bar {
+    background-color: red;
+  }
+
+  .bar.bar-header h1.title {
+    text-transform: uppercase;
+    color: #fff !important;
+    font-size: 1.0em;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: center;
+    word-spacing: 0;
+  }
+
+  h1 {
+    position: relative;
+    margin-top: 25px;
+    font-size: 38px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+  }
+
+  p {
+    position: relative;
+    padding: 0px 25px 25px 25px;
+    font-size: 34px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+    font-weight: 300;
+  }
+
+  .button-group{
+    position: relative;
+    margin: 100px;
+    text-align: center;
+
+    .btn-cancel {
+      
+    }
+
+    .btn-confirm {
+      
+    }
+
+  }
+}
+.bg-success {
+  background-color: #33cd5f;
+  color: #000;
+  width: 100%;
+  height: 100%;
+  
+  .bar {
+    background-color: #33cd5f;
+  }
+
+  .bar.bar-header h1.title {
+    text-transform: uppercase;
+    color: #fff !important;
+    font-size: 1.0em;
+    letter-spacing: 0;
+    width: 100%;
+    text-align: center;
+    word-spacing: 0;
+  }
+
+  h1 {
+    position: relative;
+    margin-top: 25px;
+    font-size: 38px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+  }
+
+  p {
+    position: relative;
+    padding: 0px 25px 25px 25px;
+    font-size: 34px;
+    text-align: center;
+    color: #fff;
+    line-height: 1.325;
+    font-weight: 300;
+  }
+
+  .button-group{
+    position: relative;
+    margin: 100px;
+    text-align: center;
+
+    .btn-cancel {
+      
+    }
+
+    .btn-confirm {
+      
+    }
+
+  }
+
+}
+
+.bg-Team1 {
+  background-color: #1abc9c!important;
 }
 
 .bg-primary{
@@ -47,49 +163,8 @@ body {
 }
 
 
-.pt-page-current, .no-js .pt-page {
-  visibility: visible;
-  z-index: 1;
-}
-
-.pt-page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  overflow: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-
-.pt-page h1 strong {
-  color: rgba(0,0,0,0.1);
-}
-
-.pt-page h1 {
-  position: absolute;
-  font-weight: 300;
-  font-size: 4.4em;
-  line-height: 1;
-  letter-spacing: 6px;
-  margin: 0;
-  top: 12%;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  word-spacing: -0.3em;
-}
-
 h1 {
+    text-shadow: rgba(0, 0, 0, 0.4);
     display: block;
     font-size: 2em;
     -webkit-margin-before: 0.67em;
@@ -98,7 +173,6 @@ h1 {
     -webkit-margin-end: 0px;
     font-weight: bold;
 }
-
 
 p {
   color: #fff;
@@ -119,9 +193,9 @@ p {
 
 .bar.bar-header h1.title {
   text-transform: uppercase;
-  color: #000!important;
+  color: #fff!important;
   font-size: 1.5em;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   width: 100%;
   text-align: center;
   word-spacing: -0.3em;
@@ -142,6 +216,7 @@ p {
   height: 88px;
 
     h2 {
+      text-shadow: rgba(0, 0, 0, 0.4);
       color: #fff!important;
       font-family: 'Open Sans Condensed', sans-serif;
       font-weight: 700;
@@ -196,6 +271,10 @@ p {
     );
   }
 
+  .tada {
+    @include tada();
+  }
+
   .fadeIn {
     @include fadeIn();
   }
@@ -220,6 +299,14 @@ p {
     @include rotateIn();
   }
 
+  .flipInX {
+    @include flipInX();
+  }
+
+  .flipOutX {
+    @include flipOutX();
+  }
+
 .dont-break-out {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -232,37 +319,6 @@ p {
   hyphens: auto;
 }
 
-#messageContainer{
-  position: fixed;
-  top: 0;
-  width:100%;
-  height: 100px;
-  box-sizing: border-box;
-  border: 1px solid #fff;
-  color: #fff;
-  word-wrap: break-word;
-  word-break: keep-all;
-
-  p.detail {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 1.125;
-    text-align: left;
-  }
-
-  p.game-messages {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 700;
-    line-height: 1.225;
-    font-size: 18px;
-    text-align: center;
-    vertical-align: middle;
-    padding: 15px;
-    text-shadow: 1px 1px #ccc;
-
-  }
-}
 
 #activeCard {
   width: 300px;
@@ -275,41 +331,10 @@ p {
 
 
 
-  #preSecretPhrase {
-    box-sizing: border-box;
-    text-align: center;
-    background-size: cover;
-
-      h2 {
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-weight: 700;
-        font-size: 26px;
-        color: #000;
-        text-align: center;
-        padding: 0;
-        margin: 35px auto;
-      }
-      p {
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-weight: 300;
-        font-size: 16px;
-        color: #000;
-        text-align: center;
-        line-height: 1.345;
-        word-break: keep-all;
-       }
-      button {
-        margin: 55px auto;
-        bottom:0;
-        text-align: center;
-      }
-
-  }
-  
-  #secretPhrase {
-    box-sizing: border-box;
-    text-align: center;
-    background-size: cover;
+#preSecretPhrase {
+  box-sizing: border-box;
+  text-align: center;
+  background-size: cover;
 
     h2 {
       font-family: 'Open Sans Condensed', sans-serif;
@@ -320,70 +345,120 @@ p {
       padding: 0;
       margin: 35px auto;
     }
-
-    h3.secret-phrase {
-      font-family: 'Shadows Into Light Two', cursive;
-      font-size: 32px;
-      color: #000;
-      text-align: center;
-      margin: 15px auto;
-    }
-
     p {
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-weight: 300;
-        font-size: 18px;
-        color: #000;
-        text-align: center;
-        line-height: 1.345;
-        word-break: keep-all;
-       }
-
-  }
-
-  #publicCountdownScreen {
-    box-sizing: border-box;
-    text-align: center;
-    background-size: cover;
-
-    h2 {
       font-family: 'Open Sans Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 26px;
+      font-weight: 300;
+      font-size: 16px;
       color: #000;
       text-align: center;
-      padding: 0;
-      margin: 35px auto;
+      line-height: 1.345;
+      word-break: keep-all;
+     }
+    button {
+      margin: 55px auto;
+      bottom:0;
+      text-align: center;
     }
 
-    p {
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-weight: 300;
-        font-size: 18px;
-        color: #000;
-        text-align: center;
-        line-height: 1.345;
-        word-break: keep-all;
-       }
-    
+}
+
+#secretPhrase {
+  box-sizing: border-box;
+  text-align: center;
+  background-size: cover;
+
+  h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: #000;
+    text-align: center;
+    padding: 0;
+    margin: 35px auto;
   }
 
+  h3.secret-phrase {
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 32px;
+    color: #000;
+    text-align: center;
+    margin: 15px auto;
+  }
 
+  p {
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      color: #000;
+      text-align: center;
+      line-height: 1.345;
+      word-break: keep-all;
+     }
+
+}
+
+#publicCountdownScreen {
+  box-sizing: border-box;
+  text-align: center;
+  background-size: cover;
+
+  h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: #000;
+    text-align: center;
+    padding: 0;
+    margin: 35px auto;
+  }
+
+  p {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+    line-height: 1.345;
+    word-break: keep-all;
+   }
+
+}
+
+swipe-card.card-0 {
+  -webkit-transform: translate3d(0, 0px, 0);
+  transform: translate3d(0, 0px, 0);
+  top: 0px;
+  z-index: 10;
+}
+swipe-card.card-1 {
+  -webkit-transform: translate3d(0, 4px, 0);
+  transform: translate3d(0, 4px, 0);
+  z-index: 9;
+}
+swipe-card.card-2 {
+  -webkit-transform: translate3d(0, 8px, 0);
+  transform: translate3d(0, 8px, 0);
+  z-index: 8;
+}
+
+.scroll-bg {
+  background: url($big-bg) no-repeat center center fixed;
+  background-size: cover;
+}
 
 
 .swipe-cards {
-  position: relative;
+  position: absolute;
   display: block;
 }
 
 swipe-card {
-  display: block;
-  position: relative;
+  position: absolute;
   -webkit-transform: scale(1,1);
   width: 300px;
   height: 350px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 15em;
+  margin-left: 15em;
   margin-top: 15em;
   box-sizing: border-box;
   background-color: rgb(255,255,255);
@@ -447,6 +522,7 @@ swipe-card .title {
 
 
 .bar .bar-footer {
+
   .team-score {
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 700;
@@ -587,7 +663,9 @@ swipe-card.pop-in {
 }
 
 
-
+div.seconds-remaining {
+  font-size: 50px;
+}
 
 .yes-text {
   position: absolute;
@@ -697,6 +775,12 @@ the CSS classes below will be transitioned despite them being defined as regular
 
 
 
+
+
+
+
+
+
 @media (max-width: 767px) {      
     
   .bar.bar-header h1.title {
@@ -781,4 +865,7 @@ the CSS classes below will be transitioned despite them being defined as regular
 
 
 }
+
+
+
 

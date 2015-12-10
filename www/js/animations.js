@@ -1,6 +1,6 @@
 
 angular.module('app.animations', [])
-.animation('.secret-phrase', function () {
+/*.animation('.secret-phrase', function () {
     return {
         addClass: function (element, className, done) {
             if (className === 'hidden') {
@@ -32,7 +32,7 @@ angular.module('app.animations', [])
 });
 
 
-/*.animation('.fold-animation', ['$animateCss', function($animateCss) {
+.animation('.fold-animation', ['$animateCss', function($animateCss) {
   return {
     enter: function(element, doneFn) {
       var height = element[0].offsetHeight;

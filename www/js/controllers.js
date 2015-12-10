@@ -45,7 +45,7 @@ angular.module('app.controllers', [])
 
         function getPhrases() {
             
-             $http.get('api/phrases.json').then(function(phraseData){
+             $http.get('api/card_types.json').then(function(phraseData){
                 $scope.phrases = phraseData.data;
                 $scope.totalPhrases = $scope.phrases.length;
                 return;
@@ -448,7 +448,6 @@ angular.module('app.controllers', [])
     newCardB.id = Math.random();
     var newCardC = cardTypes[Math.floor(Math.random() * cardTypes.length)];
     newCardC.id = Math.random();
-
     var newCards = function () {
         newCardA += newCardB += newCardC;
     }

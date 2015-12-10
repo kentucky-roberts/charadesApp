@@ -28,4 +28,3 @@ angular.module('app', ['ionic', 'ionic.contrib.ui.cards', 'ionic.service.core', 
   template: '<ion-spinner class="spinner" icon="ios"></ion-spinner>'
 });
 
-

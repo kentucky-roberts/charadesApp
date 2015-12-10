@@ -2,171 +2,158 @@
 <div ng-controller="GameController">
     <ion-pane ng-controller="CardsCtrl">
 
-
     <div class="bar bar-header bar-{{ teamColor }}">
       <h1 class="title">{{activeTeam}}</h1>
-    </div>
+    </div><!--  bar  -->
     
     <div class="bar bar-subheader bar-transparent">
-
-        <h2 class="instruction-text {{ (turnCount === -1) ? 'show' : 'hidden' }}">
-              Swipe the card UP to Start Game
-
-
-              <div class="arrow-box animated bounce">
-                <i class="ion-ios-arrow-thin-up"></i>
-              </div>
-
-
-
-
-
-          </h2>
-          <h2 class="instruction-text {{ (turnStep === 0 && turnCount != -1) ? 'show' : 'hidden' }}">
-              {{activeTeam}}'s Up!<br> Choose a Secret Phrase to act out.
-          </h2>
-          <h2 class="instruction-text {{ (turnStep === 1) ? 'show' : 'hidden' }}">
-              These are Secret Phrases so remember to keep the cards hidden from others.
-          </h2>
-          <h2 class="instruction-text {{ (turnStep === 2) ? 'show' : 'hidden' }}">
-              Act out the Secret Phrase ...<br>
-              <div class="seconds-remaining">00:{{secondsRemaining}}</div>
-          </h2>
-          <h2 class="instruction-text {{ (turnStep === 3) ? 'show' : 'hidden' }}">
-              Swipe the card UP to begin next turn
-              <div class="arrow-box">
-                <i class="ion-ios-arrow-thin-up center-block animated"></i>
-              </div>
-
-          </h2>
-
-
-    </div>
-
-
-           
-                    
-        <swipe-cards>      
-
-  <!-- Game Results -->
-            <div class="game-results" ng-if="showTimeExpired">
-                <div class="result-text">
-                    {{results}}
-                    {{timeExpiredMessage}}
-                </div>
-            </div>
-
-          <swipe-card on-swipe-up="onSwipeUp($index)"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"  id="start-card">
-            Swipe UP to Begin New Game
-            
-            <div class="hidden">
-                <button class="yes-text">Yes</button>
-                <button class="no-text">No</button>
-            </div>
-          </swipe-card>
-
-
-          <swipe-card class="card-00 {{ (turnStep === 3) ? 'show' : 'hidden' }}"
-            on-swipe-up="onSwipeUp($index)" on-destroy="cardDestroyed($index)"  id="next-turn-card">
-            Swipe UP to begin the next team's turn
-            <div class="hidden">
-                <button class="yes-text">Yes</button>
-                <button class="no-text">No</button>
-            </div>
-          </swipe-card>
-
-        
-
-
-          <swipe-card 
-            ng-repeat="card in cards"
-            
-            on-swipe-right="onSwipeRight($index)"
-            on-swipe-down="onSwipeDown($index)"
-            on-swipe-left="onSwipeLeft($index)" 
-            on-hold="onHold()"
-            on-destroy="cardDestroyed($index)" 
-            class="card-{{$index}}">
-            <div ng-controller="CardCtrl">
-              
-                <div id="activeCard">
-                    
-                    
-                    <div id="preSecretPhrase" class="pre-secret-phrase {{ (turnStep === 0) ? 'show' : 'hidden' }}">
-                        <h2>
-                            Secret Phrase #{{$index}}
-                        </h2>
-                        <p>
-                            HOLD down to revel the secret message
-                        </p>
-                    </div>
-
-
-                    <div id="secretPhrase" class="secret-phrase animated {{ (turnStep === 1) ? 'show' : 'hidden' }}">
-                        <h2>
-                            Top Secret!!
-                        </h2>
-                        
-                        <h3 class="secret-phrase">
-                            {{card.phrase}}
-                        </h3>
-
-                        <button class="button button-balanced button-round" ng-click="startCountdown()">GO!!</button>                        
-
-                        <p>
-                            Press the "Go" button to select phrase and start timer.
-                        </p>
-
-                    </div>
-
-
-                    <div id="publicCountdownScreen" class="countdown-screen animated {{ (turnStep === 2) ? 'show' : 'hidden' }}">
-                        
-                        <p>
-                            Press the green "Got It!" button if someone on your team guesses the phrase correctly.
-                        </p>
-                        
-                        <div class="success-message bg-info" ng-if="viewSecretPhraseSuccessMessage">
-                            {{successMessage}}
-                            <button class="button button-positive btn-confirm" ng-click="answeredCorrectConfirmed()">Confirm</button>
-                            <button class="button button-light btn-confirm" ng-click="answeredCorrectCanceled()">Cancel</button>
-                        </div>
-
-                        <button class="button button-positive" ng-click="answeredCorrect()" 
-                            ng-if="!viewSecretPhraseSuccessMessage">Got It!</button>
-                    </div>
-
-
-
-
-                    <div id="timeExpiredScreen" class="time-expired-screen {{ (turnStep === 4) ? 'show' : 'hidden' }}">
-                        <h2>Your time has expired.</h2>
-                        <h3>No points awarded to {{activeTeam}}</h3>
-                        <button class="btn btn-default" ng-click="readyNextTurn()">Next Turn</button>
-                    </div>
-
-                    <div class="hidden">
-                        <button class="yes-text">Yes</button>
-                        <button class="no-text">No</button>
-                    </div>
-
-                </div>
-            </div>
-          </swipe-card>
-
-
-        </swipe-cards>    
-
-
-
-        <div class="bar bar-footer bar-transparent">
-          <div class="title">
-            <span class="team-score pull-left"><b>Team1 Score: {{team1Score}}</b></span>
-            <span class="team-score pull-right"><b>Team2 Score: {{team2Score}}</b></span>
+      
+      <h2 class="instruction-text {{ (step === -1) ? 'show' : 'hidden' }}">
+          Swipe the card UP to Start Game
+          <div class="arrow-box">
+            <i class="ion-ios-arrow-thin-up"></i>
           </div>
+      </h2>
+      <h2 class="instruction-text {{ (step === 0) ? 'show' : 'hidden' }}">
+          {{activeTeam}}'s Up!<br> Choose a Secret Phrase to act out.
+      </h2>
+      <h2 class="instruction-text {{ (step === 1) ? 'show' : 'hidden' }}">
+          Swipe right and left, choose a card, press GO! button.
+      </h2>
+      <h2 class="instruction-text {{ (step === 2) ? 'show' : 'hidden' }}">
+          Act out the Secret Phrase ...<br>
+          <strong><div class="seconds-remaining">00:{{secondsRemaining}}</div></strong>
+      </h2>
+      <h2 class="instruction-text {{ (step === 3) ? 'show' : 'hidden' }}">
+          Swipe the card UP to begin next turn
+          <div class="arrow-box">
+            <i class="ion-ios-arrow-thin-up center-block animated"></i>
+          </div>
+
+      </h2>
+
+    </div><!--  bar bar-subheader -->
+
+
+         
+                  
+      <swipe-cards>      
+
+
+
+        <swipe-card class="card-00 {{ (turn === -1) ? 'show' : 'hidden' }}"
+          on-swipe-up="onSwipeUp($index)"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"  id="start-card">
+          Swipe UP to Begin New Game
+          
+          <div class="hidden">
+              <button class="yes-text">Yes</button>
+              <button class="no-text">No</button>
+          </div>
+        </swipe-card>
+
+
+
+        <swipe-card class="card-00 bg-{{activeTeam}} {{ (step === 3) ? 'show' : 'hidden' }}"
+        on-swipe-up="onSwipeUp($index)"  on-swipe-down="onSwipeDown($index)" on-destroy="cardDestroyed($index)"
+          id="next-turn-card">
+          Swipe UP to begin the next team's turn
+          <div class="hidden">
+              <button class="yes-text">Yes</button>
+              <button class="no-text">No</button>
+          </div>
+        </swipe-card>
+
+
+
+
+
+        <swipe-card 
+          ng-repeat="card in cards"
+          
+          on-swipe-right="onSwipeRight($index)"
+          on-swipe-down="onSwipeDown($index)"
+          on-swipe-left="onSwipeLeft($index)" 
+          on-partial-swipe="cardPartialSwipe(amt)" 
+          on-hold="onHold()"
+          on-double-tap="onDoubleTap()"
+          on-destroy="cardDestroyed($index)" 
+          class="card-{{$index}}">
+
+          <div ng-controller="CardCtrl">
+            
+              <div id="activeCard">
+                
+                
+                <div id="preSecretPhrase" class="pre-secret-phrase {{ (step === 0) ? 'show' : 'hidden' }}">
+                  <h2>
+                      Secret Phrase
+                  </h2>
+                  <p>
+                      HOLD down to revel the secret message
+                  </p>
+                </div>
+
+
+                <div id="secretPhrase" class="secret-phrase animated {{ (step === 1) ? 'show' : 'hidden' }}">
+                    <h2>
+                        Top Secret!!
+                    </h2>
+                    
+                    <h3 class="secret-phrase">
+                        {{card.phrase}}
+                    </h3>
+
+                    <button class="button button-balanced button-round" 
+                        ng-click="startCountdown()">GO!!</button>                        
+
+                    <p class="hidden">
+                        Press the "Go" button to select phrase and start timer.
+                    </p>
+
+
+                  <div class="hidden">
+                    <div class="no-text">NOPE</div>
+                    <div class="yes-text">LIKE</div>
+                  </div>
+
+                </div>
+
+
+                <div id="publicCountdownScreen" class="countdown-screen animated {{ (step === 2) ? 'show' : 'hidden' }}">
+                  <br>
+                  <br>
+                  <br>
+                  <button class="button button-balanced" ng-click="answeredCorrect()" 
+                      ng-if="!viewSecretPhraseSuccessMessage">Got It!</button>
+
+                  <h2>
+                      Press "Got It!" button if someone on your team guesses the phrase correctly.
+                  </h2>
+
+                </div>
+
+
+
+              </div>
+          </div>
+        </swipe-card>
+
+      
+
+
+
+
+      </swipe-cards>    
+
+      <div class="bar bar-footer bar-transparent">
+        <div class="title">
+          
+          <span id="team1ScoreBoard" class="team-score pull-left"><b>Team1 Score: {{team1Score}}</b></span>
+          <span id="team2ScoreBoard" class="team-score pull-right"><b>Team2 Score: {{team2Score}}</b></span>
+          <span class="team-score center-block"><b>turn: {{turn}} || {{step}} step</b></span>
+          
         </div>
-
-
+      </div>
 
     </ion-pane>
 </div><!-- GameController -->

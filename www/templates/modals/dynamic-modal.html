@@ -1,0 +1,18 @@
+<ion-modal-view>
+<div class="{{modalBg}}">
+    <ion-content>
+        <h1>{{modalTitle}}</h1>
+        <p>
+        {{modalMessage}}
+        </p>
+
+        <div ng-if="viewSecretPhraseSuccessMessage">
+            <div class="button-group">
+                <button class="button button-light btn-cancel" ng-click="answeredCorrectCanceled()">Cancel</button>
+                <button class="button button-light btn-confirm" ng-click="answeredCorrectConfirmed()"><i class="ion-checkmark"></i> Confirm</button>
+            </div>
+        </div>
+
+    </ion-content>
+</div>
+</ion-modal-view>
